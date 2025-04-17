@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express=require("express");
 const mongoose=require("mongoose");
 const app=express();
@@ -6,11 +7,11 @@ const port=3000;
 app.use(cors({
   origin: 'http://localhost:5173'
 }));
-
+const db_url= process.env.ATLASDB_URL;
 main().then(()=>console.log("connected successful")).catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/foodzone');
+  await mongoose.connect(db_url);
 }
 
 const list=require("./models/list");
